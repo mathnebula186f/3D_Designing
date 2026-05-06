@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Tom Ford 3D Experience</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-theme="azure">
+
+  <header class="topbar">
+    <div class="brand">
+      <h1 class="brand-name">TOM FORD</h1>
+      <p class="brand-tag">PRIVATE BLEND</p>
+    </div>
+    <nav class="mainnav">
+      <a href="index.html">HOME</a>
+      <a href="about.html" class="active">ABOUT</a>
+      <a href="originality.html">ORIGINALITY</a>
+      <a href="reference.html">REFERENCE</a>
+      <a href="submission.html">SUBMISSION</a>
+    </nav>
+    <div class="topright">
+      <button class="icon-btn" title="Theme">☀</button>
+      <button class="icon-btn menu-btn" title="Menu">≡</button>
+    </div>
+  </header>
+
+  <main class="page">
+    <p class="eyebrow">ABOUT THE 3D APP</p>
+    <h2>Crafted In Three Dimensions</h2>
+    <div class="rule"></div>
+
+    <p>
+      This 3D Web Application is an academic submission for the Web 3D module
+      Assignment 2026. It presents three luxury fragrance bottles — <em>Azure
+      Lime</em>, <em>Lost Cherry</em> and <em>F* Fabulous</em> — modelled
+      procedurally and rendered in real time inside the browser using
+      <a href="https://threejs.org/" target="_blank" rel="noopener">Three.js</a>.
+    </p>
+
+    <h3>Concept &amp; Design Choices</h3>
+    <p>
+      The visual language is inspired by the Tom Ford Private Blend marketing
+      photography: a single product on a polished marble podium, cinematic
+      rim-lighting, deep negative space, and a serif logotype paired with
+      tightly-tracked sans-serif copy. The dark UI lets the bottle's light
+      transmission and gold label become the focal point.
+    </p>
+    <p>
+      The colour theme reactively follows the active bottle: deep emerald for
+      Azure Lime, oxblood for Lost Cherry, and a near-black palette for
+      F* Fabulous. This was implemented through a <code>data-theme</code>
+      attribute on the body, with CSS custom properties switching the radial
+      background gradient and accent colours.
+    </p>
+
+    <h3>3D Modelling Approach</h3>
+    <ul>
+      <li><strong>Geometry —</strong> each bottle uses
+        <code>RoundedBoxGeometry</code> for the body and cap, a small
+        <code>CylinderGeometry</code> for the neck, and a planar label
+        sitting just outside the front face. An inner liquid mesh (the fluid
+        the perfume "fills" to) gives the glass bottles depth.</li>
+      <li><strong>Materials —</strong> the two glass bottles use
+        <code>MeshPhysicalMaterial</code> with <code>transmission</code>,
+        <code>ior&nbsp;1.52</code>, attenuation colour and clearcoat — giving
+        a true tinted glass refraction. F*&nbsp;Fabulous uses a matte
+        <code>MeshStandardMaterial</code> to mimic its real-world rubberised
+        finish.</li>
+      <li><strong>Textures —</strong> labels are generated at runtime onto an
+        HTML canvas (so the typography is crisp at any resolution) and used as
+        a <code>CanvasTexture</code>. The marble podium is similarly
+        procedural — bezier veining over a radial gradient.</li>
+      <li><strong>Lighting —</strong> a soft ambient pass plus a controllable
+        spotlight ("Headlight"), a coloured point-light rim that re-tints per
+        bottle, and a second fill point-light. A PMREM environment is built
+        in-app from a custom shader sky so the glass has realistic specular
+        highlights without fetching an external HDRI.</li>
+      <li><strong>Cameras —</strong> a single <code>PerspectiveCamera</code>
+        is animated between named viewpoints (Front, Side, Top, Close-Up)
+        with eased interpolation; <code>OrbitControls</code> hands manual
+        rotation back to the user.</li>
+    </ul>
+
+    <h3>Interactivity</h3>
+    <p>
+      All controls are wired through plain JavaScript event listeners. The
+      Wireframe toggle iterates the bottle group and flips
+      <code>material.wireframe</code>. Spin animates inside the
+      <code>requestAnimationFrame</code> loop. The model gallery and arrow
+      buttons swap bottles by disposing the previous geometry &amp; materials
+      and constructing a new one — so memory does not leak when the user
+      flicks between products.
+    </p>
+
+    <h3>Going Beyond the Lab — Deeper Understanding</h3>
+    <ul>
+      <li>Custom <strong>GLSL shader</strong> sky used to build the PMREM
+        environment map (vertex / fragment shader pair in <code>main.js</code>).</li>
+      <li><strong>Post-processing</strong> via <code>EffectComposer</code> +
+        <code>UnrealBloomPass</code> to add a cinematic glow on highlights.</li>
+      <li>Physically-based <strong>refractive glass</strong> using
+        <code>MeshPhysicalMaterial</code> (transmission, ior, attenuation,
+        clearcoat) — beyond the basic textured material taught in the labs.</li>
+      <li>Procedural <strong>canvas-rendered textures</strong> (labels,
+        marble veining) so that the build has no external asset dependencies.</li>
+      <li>Reactive <strong>theme system</strong> driven by CSS custom properties
+        for an immediate brand shift when a new bottle loads.</li>
+    </ul>
+
+    <h3>Accessibility Considerations</h3>
+    <ul>
+      <li>Semantic landmarks (<code>&lt;header&gt;</code>,
+        <code>&lt;main&gt;</code>, <code>&lt;nav&gt;</code>,
+        <code>&lt;aside&gt;</code>, <code>&lt;footer&gt;</code>).</li>
+      <li>All interactive controls are real <code>&lt;button&gt;</code>
+        elements — keyboard tab-order works without extra ARIA.</li>
+      <li>Contrast ratio of body copy on the dark gradient meets WCAG AA.</li>
+      <li>The viewer has an <code>aria-label</code>; spin is animated but
+        also pausable via the Spin toggle, so users sensitive to motion
+        can stop it.</li>
+      <li>Layout reflows to a single column under 1100&nbsp;px so the app is
+        usable on tablet &amp; phone.</li>
+    </ul>
+
+    <h3>Technology Stack</h3>
+    <ul>
+      <li>HTML5 + CSS3 (custom properties, grid, flex)</li>
+      <li>Three.js r160 — <code>MeshPhysicalMaterial</code>,
+        <code>RoundedBoxGeometry</code>, <code>OrbitControls</code>,
+        <code>PMREMGenerator</code>, <code>EffectComposer</code>,
+        <code>UnrealBloomPass</code>.</li>
+      <li>Vanilla ES Modules via <code>importmap</code> — no build step.</li>
+    </ul>
+
+    <p style="margin-top:40px"><a href="index.html">← Back to the experience</a></p>
+  </main>
+</body>
+</html>

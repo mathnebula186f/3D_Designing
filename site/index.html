@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tom Ford Private Blend — 3D Experience</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-theme="azure">
+
+  <header class="topbar">
+    <div class="brand">
+      <h1 class="brand-name">TOM FORD</h1>
+      <p class="brand-tag">PRIVATE BLEND</p>
+    </div>
+    <nav class="mainnav">
+      <a href="index.html" class="active">HOME</a>
+      <a href="about.html">ABOUT</a>
+      <a href="originality.html">ORIGINALITY</a>
+      <a href="reference.html">REFERENCE</a>
+      <a href="submission.html">SUBMISSION</a>
+    </nav>
+    <div class="topright">
+      <button id="themeToggle" class="icon-btn" title="Toggle dark/light">☀</button>
+      <button class="icon-btn menu-btn" title="Menu">≡</button>
+    </div>
+  </header>
+
+  <main class="layout">
+
+    <!-- LEFT: Hero copy -->
+    <section class="hero">
+      <p class="eyebrow" id="heroEyebrow">PRIVATE BLEND COLLECTION</p>
+      <h2 class="hero-title" id="heroTitle">TOM FORD<br><span id="heroProduct">AZURE LIME</span></h2>
+      <div class="rule"></div>
+      <p class="meta" id="heroMeta">EAU DE PARFUM<br>50 ML</p>
+      <p class="hero-copy" id="heroCopy">
+        A vibrant, sunlit fragrance. Crisp citrus and bright greens —
+        Azure Lime captures the light of the Mediterranean
+        in a single breath.
+      </p>
+      <button class="cta">EXPLORE 3D EXPERIENCE <span>→</span></button>
+      <ul class="features-list">
+        <li><span class="ico">◆</span><br>HIGH QUALITY<br>3D MODELS</li>
+        <li><span class="ico">⚡</span><br>REAL-TIME<br>INTERACTION</li>
+        <li><span class="ico">◇</span><br>IMMERSIVE<br>EXPERIENCE</li>
+      </ul>
+    </section>
+
+    <!-- CENTER: 3D viewer -->
+    <section class="stage">
+      <div id="viewer" aria-label="3D perfume bottle viewer"></div>
+      <div class="stage-hint"><span class="mouse">🖱</span> DRAG TO ROTATE</div>
+    </section>
+
+    <!-- RIGHT: Controls -->
+    <aside class="panel">
+      <h3 class="panel-title">FEATURES</h3>
+
+      <div class="control">
+        <span class="ctl-icon">▦</span>
+        <span class="ctl-label">Wireframe</span>
+        <div class="toggle" data-control="wireframe">
+          <span class="opt">ON</span><span class="opt active">OFF</span>
+        </div>
+      </div>
+
+      <div class="control">
+        <span class="ctl-icon">↻</span>
+        <span class="ctl-label">Spin</span>
+        <div class="toggle" data-control="spin">
+          <span class="opt active">ON</span><span class="opt">OFF</span>
+        </div>
+      </div>
+
+      <div class="control">
+        <span class="ctl-icon">☀</span>
+        <span class="ctl-label">Headlight</span>
+        <div class="toggle" data-control="headlight">
+          <span class="opt active">ON</span><span class="opt">OFF</span>
+        </div>
+      </div>
+
+      <div class="control">
+        <span class="ctl-icon">⟲</span>
+        <span class="ctl-label">Reset Camera</span>
+        <button class="reset-btn" data-action="reset">RESET</button>
+      </div>
+
+      <h3 class="panel-title">CAMERA VIEWS</h3>
+      <button class="view-btn" data-view="front"><span class="ctl-icon">◰</span> Front View</button>
+      <button class="view-btn" data-view="side"><span class="ctl-icon">▤</span> Side View</button>
+      <button class="view-btn" data-view="top"><span class="ctl-icon">▦</span> Top View</button>
+      <button class="view-btn" data-view="close"><span class="ctl-icon">⊕</span> Close Up View</button>
+    </aside>
+  </main>
+
+  <!-- BOTTOM: Model gallery -->
+  <footer class="gallery">
+    <button class="arrow" data-dir="prev">‹</button>
+    <div class="thumbs" id="thumbs">
+      <div class="thumb" data-bottle="fabulous"><div class="thumb-img tf"></div><p>F* FABULOUS</p><span>EAU DE PARFUM</span></div>
+      <div class="thumb" data-bottle="cherry"><div class="thumb-img tc"></div><p>LOST CHERRY</p><span>EAU DE PARFUM</span></div>
+      <div class="thumb active" data-bottle="azure"><div class="thumb-img ta"></div><p>AZURE LIME</p><span>EAU DE PARFUM</span></div>
+    </div>
+    <button class="arrow" data-dir="next">›</button>
+  </footer>
+
+  <p class="copyright">© 2026 TOM FORD. ALL RIGHTS RESERVED. — Educational student project.</p>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

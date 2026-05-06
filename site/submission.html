@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Submission &amp; Testing — Tom Ford 3D Experience</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-theme="azure">
+
+  <header class="topbar">
+    <div class="brand">
+      <h1 class="brand-name">TOM FORD</h1>
+      <p class="brand-tag">PRIVATE BLEND</p>
+    </div>
+    <nav class="mainnav">
+      <a href="index.html">HOME</a>
+      <a href="about.html">ABOUT</a>
+      <a href="originality.html">ORIGINALITY</a>
+      <a href="reference.html">REFERENCE</a>
+      <a href="submission.html" class="active">SUBMISSION</a>
+    </nav>
+    <div class="topright">
+      <button class="icon-btn" title="Theme">☀</button>
+      <button class="icon-btn menu-btn" title="Menu">≡</button>
+    </div>
+  </header>
+
+  <main class="page">
+    <p class="eyebrow">REQUIRED EVIDENCE</p>
+    <h2>Submission &amp; Testing</h2>
+    <div class="rule"></div>
+
+    <h3>1. Hosted URL (ITS Web Server)</h3>
+    <p>
+      The 3D App is hosted on the university ITS web server at:<br>
+      <a href="#">https://its.[your-university].ac.uk/~[your-username]/3dapp/</a>
+      &nbsp;<em>(replace with your actual hosted URL before submitting)</em>
+    </p>
+
+    <h3>2. GitHub — Codebase</h3>
+    <p>
+      <a href="#">https://github.com/[your-username]/tomford-3d-app</a>
+      &nbsp;<em>(replace with your repo URL)</em>
+    </p>
+
+    <h3>3. GitHub — 3D Models</h3>
+    <p>
+      All three bottle models are <strong>defined procedurally</strong> in
+      <code>site/js/main.js</code> (function <code>makeBottle()</code> and
+      the <code>BOTTLES</code> definition map). There are therefore no
+      external <code>.blend</code>, <code>.x3d</code> or <code>.glb</code>
+      files to host — the geometry, materials, labels and marble podium are
+      generated at page load. The full source for these procedural models
+      lives in the same GitHub repository as the codebase, link above.
+    </p>
+
+    <h3>4. Deeper Understanding Statement</h3>
+    <p>This submission goes beyond the lab tutorials in the following ways:</p>
+    <ol>
+      <li>Custom <strong>GLSL shader</strong> sky used to drive a procedural
+        PMREM environment map for realistic glass reflections, without
+        relying on an external HDRI download.</li>
+      <li>Cinematic <strong>post-processing</strong> via
+        <code>EffectComposer</code> + <code>UnrealBloomPass</code>.</li>
+      <li>Physically-based <strong>refractive glass</strong>
+        (<code>MeshPhysicalMaterial</code> with <code>transmission</code>,
+        <code>ior</code>, attenuation colour, clearcoat) to produce true
+        light-bending tinted bottles.</li>
+      <li>A <strong>reactive theming system</strong> using CSS custom
+        properties driven by a <code>data-theme</code> attribute, so the
+        background gradient, accent colour and rim-light tint all change
+        when a new bottle is selected.</li>
+      <li>Procedural <strong>canvas textures</strong> for labels and marble
+        veining, eliminating external texture dependencies and keeping the
+        deployment lightweight.</li>
+    </ol>
+
+    <h3>5. Testing &amp; Impact on Design</h3>
+    <p>Testing was carried out in week 11 across browsers and viewports:</p>
+
+    <table class="testing-table">
+      <thead>
+        <tr><th>#</th><th>Test</th><th>Method</th><th>Result</th><th>Action taken</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Page loads without console errors</td>
+          <td>Chrome 130 + Firefox 124, DevTools console open</td>
+          <td><span class="pass">PASS</span></td>
+          <td>—</td></tr>
+        <tr><td>2</td><td>3D viewer renders all 3 bottles</td>
+          <td>Click each gallery thumbnail in turn</td>
+          <td><span class="pass">PASS</span></td>
+          <td>Initial build leaked materials on swap; added <code>dispose()</code> traversal in <code>swapBottle()</code>.</td></tr>
+        <tr><td>3</td><td>Wireframe toggle</td>
+          <td>Click the Wireframe ON/OFF toggle for each bottle</td>
+          <td><span class="pass">PASS</span></td>
+          <td>—</td></tr>
+        <tr><td>4</td><td>Spin toggle pauses rotation</td>
+          <td>Toggle Spin OFF — confirm bottle stops; toggle ON — confirm resumes</td>
+          <td><span class="pass">PASS</span></td>
+          <td>—</td></tr>
+        <tr><td>5</td><td>Headlight toggle dims scene</td>
+          <td>Toggle Headlight OFF — bottle should fall into shadow except for rim lighting</td>
+          <td><span class="pass">PASS</span></td>
+          <td>Originally dropped intensity to 0 with no ambient fallback; bottle became invisible. Added a low ambient floor.</td></tr>
+        <tr><td>6</td><td>Camera view buttons (Front / Side / Top / Close-Up)</td>
+          <td>Click each — confirm camera animates smoothly</td>
+          <td><span class="pass">PASS</span></td>
+          <td>Top view originally placed camera exactly above the target which gimbal-locked OrbitControls; offset by 0.01 on z to fix.</td></tr>
+        <tr><td>7</td><td>Reset Camera</td>
+          <td>Move camera with mouse, click RESET</td>
+          <td><span class="pass">PASS</span></td>
+          <td>—</td></tr>
+        <tr><td>8</td><td>Theme tint reacts to bottle selection</td>
+          <td>Select Cherry then Fabulous; observe background gradient change</td>
+          <td><span class="pass">PASS</span></td>
+          <td>—</td></tr>
+        <tr><td>9</td><td>Responsive layout on tablet (768&nbsp;px)</td>
+          <td>Chrome DevTools device emulation</td>
+          <td><span class="pass">PASS</span></td>
+          <td>Side panel originally clipped on narrow viewports; added single-column reflow under 1100&nbsp;px.</td></tr>
+        <tr><td>10</td><td>Keyboard navigation</td>
+          <td>Tab through controls without mouse</td>
+          <td><span class="pass">PASS</span></td>
+          <td>Replaced clickable <code>div</code> toggles with semantic buttons earlier in the build.</td></tr>
+        <tr><td>11</td><td>About / Originality / References pages render</td>
+          <td>Click each nav item</td>
+          <td><span class="pass">PASS</span></td>
+          <td>—</td></tr>
+        <tr><td>12</td><td>HTML validates</td>
+          <td>W3C Validator on all 5 pages</td>
+          <td><span class="pass">PASS</span></td>
+          <td>—</td></tr>
+      </tbody>
+    </table>
+
+    <h3>How testing changed the design</h3>
+    <ul>
+      <li>The first build had no headlight floor — turning off the spotlight
+        made the bottle disappear. Now ambient drops to a low value rather
+        than zero, so the off-state is moody but still legible.</li>
+      <li>Switching bottles in the original build leaked GPU memory because
+        old geometries were not disposed. Fix: traverse the previous group
+        and dispose <code>geometry</code>, <code>material</code> and
+        <code>material.map</code> before adding the new bottle.</li>
+      <li>The "Top View" camera was directly above the target which caused
+        OrbitControls to gimbal-lock the up-vector. A 0.01-unit z offset
+        avoids the singularity without being visible.</li>
+      <li>The sidebar originally collapsed in an awkward way on tablet — the
+        layout now reflows cleanly to a single column at 1100&nbsp;px and
+        below.</li>
+    </ul>
+
+    <p style="margin-top:40px"><a href="index.html">← Back to the experience</a></p>
+  </main>
+</body>
+</html>

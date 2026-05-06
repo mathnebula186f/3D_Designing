@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m venv myenv)",
+      "Bash(myenv/Scripts/python.exe -c ' *)",
+      "Bash(\"../myenv/Scripts/python.exe\" -m http.server 8765 --bind 127.0.0.1)",
+      "Bash(curl -s -o /dev/null -w \"index.html %{http_code}\\\\n\" http://127.0.0.1:8765/index.html)",
+      "Bash(curl -s -o /dev/null -w \"about.html %{http_code}\\\\n\" http://127.0.0.1:8765/about.html)",
+      "Bash(curl -s -o /dev/null -w \"originality.html %{http_code}\\\\n\" http://127.0.0.1:8765/originality.html)",
+      "Bash(curl -s -o /dev/null -w \"reference.html %{http_code}\\\\n\" http://127.0.0.1:8765/reference.html)",
+      "Bash(curl -s -o /dev/null -w \"submission.html %{http_code}\\\\n\" http://127.0.0.1:8765/submission.html)",
+      "Bash(node --check js/main.mjs)"
+    ]
+  }
+}
