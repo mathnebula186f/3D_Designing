@@ -170,18 +170,15 @@ body{
 .thumb:hover{border-color:var(--accent)}
 .thumb.active{border-color:var(--accent); box-shadow:0 0 22px rgba(216,153,90,.18)}
 .thumb-img{
-  height:100px;background:#000;
-  display:flex;align-items:center;justify-content:center;
+  height:100px;
   margin-bottom:8px;
-  background-size:60% auto;background-repeat:no-repeat;background-position:center;
+  background-size:auto 86%;
+  background-repeat:no-repeat;
+  background-position:center;
 }
-.thumb-img.ta{background:radial-gradient(circle at 50% 70%, #1d6e5e, #04261e);}
-.thumb-img.tc{background:radial-gradient(circle at 50% 70%, #6e1d2c, #2a0810);}
-.thumb-img.tf{background:radial-gradient(circle at 50% 70%, #1a1a1c, #060608);}
-.thumb-img::after{
-  content:"";display:block;width:36px;height:60px;
-  background:rgba(255,255,255,.08);border-radius:2px;
-}
+.thumb-img.ta{background-color:#04261e; background-image:url("../assets/azure.jpg");}
+.thumb-img.tc{background-color:#2a0810; background-image:url("../assets/cherry.jpg");}
+.thumb-img.tf{background-color:#060608; background-image:url("../assets/fabulous.jpg");}
 .thumb p{font-size:11px;letter-spacing:2px;color:var(--txt);margin-top:4px}
 .thumb span{font-size:8px;letter-spacing:1.5px;color:var(--muted)}
 

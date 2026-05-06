@@ -1,0 +1,93 @@
+================================================================
+  TOM FORD PRIVATE BLEND — 3D WEB EXPERIENCE
+  How to run the site locally
+================================================================
+
+WHAT'S IN THIS FOLDER
+---------------------
+  site/                  <-- the actual website (this is what you submit)
+    index.html           Home page with the 3D viewer
+    about.html           About / design choices
+    originality.html     Statement of Originality
+    reference.html       References / citations
+    submission.html      Submission + testing evidence
+    css/style.css        All styling
+    js/main.js           Three.js scene + procedural bottle models
+    assets/              Bottle thumbnail images
+
+  myenv/                 Python virtual environment (only used to run
+                         the local web server — not part of the site)
+
+  HOW_TO_RUN.txt         (this file)
+
+
+WHY YOU CAN'T JUST DOUBLE-CLICK index.html
+------------------------------------------
+The page loads Three.js as an ES module via an importmap. Browsers
+block ES module imports when the page is opened with the file://
+protocol for security reasons. You MUST serve it over HTTP, even
+locally. Any tiny static server will do — instructions below.
+
+
+================================================================
+OPTION 1 — Python (already set up in myenv/)        [recommended]
+================================================================
+
+1. Open PowerShell in this folder
+   (Shift + right-click in Explorer -> "Open PowerShell window here")
+
+2. Activate the virtual environment:
+
+      .\myenv\Scripts\Activate.ps1
+
+   If PowerShell complains about execution policy, run this once:
+
+      Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+
+3. Move into the site folder and start the server:
+
+      cd site
+      python -m http.server 8765
+
+4. Open your browser and go to:
+
+      http://127.0.0.1:8765/
+
+5. To stop the server: press Ctrl + C in the PowerShell window.
+
+
+ONE-LINER (no activation needed)
+--------------------------------
+From this folder, in PowerShell:
+
+      cd site ; & "..\myenv\Scripts\python.exe" -m http.server 8765
+
+Note the leading "&" — PowerShell needs the call operator to run a
+quoted executable path. Without it you get a ParserError.
+
+
+================================================================
+OPTION 2 — Node.js (if you prefer)
+================================================================
+
+      cd site
+      npx serve -l 8765
+
+Then open http://127.0.0.1:8765/
+
+
+================================================================
+OPTION 3 — VS Code "Live Server" extension
+================================================================
+
+1. Install the "Live Server" extension by Ritwick Dey.
+2. Right-click site/index.html -> "Open with Live Server".
+
+
+================================================================
+TESTED IN
+================================================================
+  * Chrome 130+ on Windows 11
+  * Firefox 124+ on Windows 11
+  * Microsoft Edge (Chromium)
+================================================================
